@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import StoreProvider from "@/redux/StoreProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
@@ -23,9 +24,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavBar />
-          {children}
-          <Footer />
+          <StoreProvider>
+            <NavBar />
+            {children}
+            <Footer />
+          </StoreProvider>
         </ThemeProvider>
       </body>
     </html>
