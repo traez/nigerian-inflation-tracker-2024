@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
+import { Category } from "./categories";
 
 export interface FormEntry {
   id: string;
   datePurchased: string; // Format: DD/MM/YYYY
   dateReported: string; // Format: DD/MM/YYYY
-  category: string;
+  category: Category;
   item: string;
   price: number;
   quantity: number;

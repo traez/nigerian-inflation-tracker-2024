@@ -9,13 +9,20 @@ import {
   deleteFormEntry,
   selectFormEntries,
 } from "@/redux/formEntrySlice";
+import { Categories, Category } from "@/redux/categories";
 
 const formSchema = z.object({
-  datePurchased: z
-    .string()
-    .regex(/^\d{2}\/\d{2}\/\d{4}$/, "Date must be in DD/MM/YYYY format"),
+  datePurchased: z.string(),
   dateReported: z.string().optional(),
-  category: z.string().min(1, "Category is required"),
+  category: z
+    .string()
+    .refine(
+      (value): value is Category =>
+        Categories.includes(value as Category) && value !== "Select Category",
+      {
+        message: "Please select a valid category",
+      }
+    ),
   item: z.string().min(1, "Item is required"),
   price: z
     .string()
@@ -44,14 +51,18 @@ const ReduxTFormEntry = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
   });
 
   const onSubmit = (data: FormSchemaType) => {
-    // Convert the price and quantity from strings to numbers
+    const [year, month, day] = data.datePurchased.split("-");
+    const formattedDatePurchased = `${day}/${month}/${year}`;
+
     const formattedData = {
       ...data,
+      datePurchased: formattedDatePurchased,
       price: parseFloat(data.price.toString()),
       quantity: parseInt(data.quantity.toString(), 10),
       id: uuidv4(),
@@ -72,10 +83,12 @@ const ReduxTFormEntry = () => {
             Date Purchased
           </label>
           <input
-            type="text"
+            type="date"
             {...register("datePurchased")}
-            placeholder="DD/MM/YYYY"
-            className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            onChange={(e) => {
+              setValue("datePurchased", e.target.value);
+            }}
+            className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm hover:cursor-pointer"
           />
           {errors.datePurchased && (
             <p className="text-red-600 text-sm">
@@ -95,12 +108,16 @@ const ReduxTFormEntry = () => {
           <label className="block text-sm font-medium text-gray-700">
             Category
           </label>
-          <input
-            type="text"
+          <select
             {...register("category")}
-            className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm pl-2"
-            placeholder="Choose category of item purchased"
-          />
+            className="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          >
+            {Categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
           {errors.category && (
             <p className="text-red-600 text-sm">{errors.category.message}</p>
           )}
