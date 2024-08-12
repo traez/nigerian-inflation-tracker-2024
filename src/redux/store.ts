@@ -17,6 +17,6 @@ export type AppDispatch = AppStore["dispatch"];
 
 /*
 Imports: Brings in necessary functions and reducers.
-Store Creation: Defines a function to create and configure the store with the counterReducer.
+Store Creation: Defines a function to create and configure the store with the formEntryReducer.
 Type Inference: Uses TypeScript to infer and export types for the store, state, and dispatch functions to ensure type safety throughout the application.
 */

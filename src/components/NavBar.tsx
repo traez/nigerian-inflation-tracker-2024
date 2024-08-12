@@ -21,7 +21,7 @@ export default function Navbar() {
           <GithubLogin />
           <GoogleLogin />
           <form action={logout}>
-            <Button type="submit" variant="default" size="smallt">
+            <Button type="submit" variant="plain" size="smallt">
               Logout
             </Button>
           </form>

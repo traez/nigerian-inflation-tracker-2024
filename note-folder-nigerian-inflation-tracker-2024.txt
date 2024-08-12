@@ -1,0 +1,34 @@
+Stopped 00:33:10
+------------------------------------------------------------------------
+Next.js 14 with Redux Toolkit and TypeScript: Complete Guide with Examples
+https://www.youtube.com/watch?v=G6YoUlYrr9M
+2:48:57
+May 27, 2024
+https://github.com/MUKE-coder/redux-with-typescript
+https://desishub-docs.vercel.app/programming-tutorials/nextjs/redux#introduction
+
+------------------------------------------------------------------------
+search
+https://www.youtube.com/results?search_query=Authentication++nextjs+AuthJS+NextAuth&sp=EgIIBQ%253D%253D
+------------------------------------------------------------------------
+Things i learnt 
+
+- When deciding between using .js and .jsx:
+Use .js for plain JavaScript files that don’t include JSX syntax.
+Use .jsx for files that include JSX, which allows embedding HTML-like syntax directly within JavaScript.
+In general, if a file contains JSX (e.g., <div>Hello</div>), it should be named with a .jsx extension. For TypeScript, use .tsx instead. 
+- npm install uuid
+Installs the uuid package, which generates unique identifiers (Universally Unique Identifiers).
+npm i @types/uuid
+Installs the type definitions for the uuid package, allowing for improved code completion and type checking in TypeScript projects.
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+
+     
