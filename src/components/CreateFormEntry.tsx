@@ -6,7 +6,6 @@ import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
 import { Categories, Category } from "@/lib/typeCategories";
 import { StatesNg, StateNg } from "@/lib/typeStatesng";
-import { FormEntry as FormEntryType } from "@/lib/typeFormEntry";
 import { addFormEntry } from "@/lib/actionsFormEntry";
 
 const formSchema = z.object({

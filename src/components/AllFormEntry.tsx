@@ -4,7 +4,7 @@ import FormEntryItem from "./FormEntryItem";
 
 export default async function AllFormEntry() {
   const fetchedFormEntries = await getFormEntries();
-  const fetchedFormEntries2: FormEntry[] = JSON.parse(
+  const fetchedFormEntries2: (FormEntry & { mongoId: string })[] = JSON.parse(
     JSON.stringify(fetchedFormEntries)
   );
 

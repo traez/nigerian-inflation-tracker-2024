@@ -14,3 +14,5 @@ export interface FormEntry {
   state: (typeof StatesNg)[number];
   notes: string;
 }
+
+export type FormEntryWithMongoId = FormEntry & { mongoId: string };

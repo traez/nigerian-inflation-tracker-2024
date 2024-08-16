@@ -1,11 +1,24 @@
 "use client";
-import { FormEntry } from "@/lib/typeFormEntry";
+import { useRouter } from 'next/navigation';
+import { FormEntryWithMongoId } from "@/lib/typeFormEntry";
+import { deleteFormEntry } from "@/lib/actionsFormEntry";
 
 interface FormEntryItemProps {
-  entry: FormEntry;
+    entry: FormEntryWithMongoId;
 }
 
 const FormEntryItem: React.FC<FormEntryItemProps> = ({ entry }) => {
+    const router = useRouter();
+
+    const handleDelete = async (mongoId: string) => {
+        try {
+          await deleteFormEntry(mongoId);
+          router.refresh(); 
+        } catch (error) {
+          console.error("Failed to delete form entry:", error);
+        }
+      };
+
   return (
     <li key={entry.id} className="p-4 bg-white rounded-lg shadow">
       <div className="flex flex-col space-y-2">
@@ -22,7 +35,7 @@ const FormEntryItem: React.FC<FormEntryItemProps> = ({ entry }) => {
       <button onClick={() => console.log("edit")} className="text-blue-600 hover:text-blue-800 mt-2 mr-2">
         Edit
       </button>
-      <button onClick={() => console.log("delete")} className="text-red-600 hover:text-red-800 mt-2">
+      <button onClick={() => handleDelete(entry.mongoId)} className="text-red-600 hover:text-red-800 mt-2">
         Delete
       </button>
     </li>
