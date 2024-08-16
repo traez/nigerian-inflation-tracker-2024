@@ -1,21 +1,16 @@
 "use client";
 import { useState } from "react";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
-import {
-  addFormEntry,
-  deleteFormEntry,
-  editFormEntry,
-  selectFormEntries,
-  FormEntry,
-} from "@/redux/formEntrySlice";
-import { Categories, Category } from "@/redux/categories";
-import { StatesNg, StateNg } from "@/redux/statesng";
+import { Categories, Category } from "@/lib/typeCategories";
+import { StatesNg, StateNg } from "@/lib/typeStatesng";
+import { FormEntry as FormEntryType } from "@/lib/typeFormEntry";
+import { addFormEntry } from "@/lib/actionsFormEntry";
 
 const formSchema = z.object({
+  userEmail: z.string(),
   datePurchased: z
     .string()
     .min(1, "Date Purchased is required")
@@ -65,11 +60,12 @@ const formSchema = z.object({
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-const ReduxTFormEntry = () => {
-  const dispatch = useAppDispatch();
-  const formEntries = useAppSelector(selectFormEntries);
+interface CreateFormEntryProps {
+  userEmail: string | null | undefined;
+}
+
+const CreateFormEntry: React.FC<CreateFormEntryProps> = ({ userEmail }) => {
   const [editingId, setEditingId] = useState<string>("");
-  console.log(formEntries);
 
   const {
     register,
@@ -90,10 +86,10 @@ const ReduxTFormEntry = () => {
     hour12: true,
   });
 
-  const onSubmit = (data: FormSchemaType) => {
-    console.log(data);
+  const onSubmit = async (data: FormSchemaType) => {
     const [year, month, day] = data.datePurchased.split("-");
     const formattedDatePurchased = `${day}/${month}/${year}`;
+    const userEmailSplit = data.userEmail.split("@")[0];
 
     const formattedData = {
       ...data,
@@ -101,13 +97,14 @@ const ReduxTFormEntry = () => {
       price: parseFloat(data.price.toString()),
       quantity: parseInt(data.quantity.toString(), 10),
       id: uuidv4(),
+      userEmail: userEmailSplit,
     };
-
-    dispatch(addFormEntry(formattedData));
+    console.log(formattedData);
+    await addFormEntry(formattedData);
     reset();
   };
 
-  const onEdit = (data: FormSchemaType) => {
+  /* const onEdit = (data: FormSchemaType) => {
     const [year, month, day] = data.datePurchased.split("-");
     const formattedDatePurchased = `${day}/${month}/${year}`;
 
@@ -119,12 +116,12 @@ const ReduxTFormEntry = () => {
       id: editingId,
     };
 
-    dispatch(editFormEntry(formattedData));
+    //dispatch(editFormEntry(formattedData));
     reset();
     setEditingId("");
-  };
+  }; */
 
-  const handleEditClick = (entry: FormEntry) => {
+  /* const handleEditClick = (entry: FormEntry) => {
     const [day, month, year] = entry.datePurchased.split("/");
     const formattedDatePurchased = `${year}-${month}-${day}`;
 
@@ -137,16 +134,29 @@ const ReduxTFormEntry = () => {
     setValue("state", entry.state);
     setValue("notes", entry.notes);
     setEditingId(entry.id);
-  };
+  }; */
 
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Add New Entry</h2>
 
       <form
-        onSubmit={handleSubmit(editingId ? onEdit : onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
+        /*     onSubmit={handleSubmit(editingId ? onEdit : onSubmit)} */
         className="space-y-4"
       >
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+          User Email
+          </label>
+          <input
+            type="text"
+            value={userEmail || ""}
+            {...register("userEmail")}
+            readOnly
+            className="mt-1 block w-full rounded-md border border-gray-400 bg-gray-100 p-2 text-gray-700 shadow-sm sm:text-sm"
+          />
+        </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Date Purchased
@@ -278,7 +288,7 @@ const ReduxTFormEntry = () => {
       </form>
 
       <h2 className="text-2xl font-bold mt-8 mb-4">Entries</h2>
-      <ul className="space-y-4">
+      {/*  <ul className="space-y-4">
         {formEntries.map((entry) => (
           <li key={entry.id} className="p-4 bg-white rounded-lg shadow">
             <div className="flex flex-col space-y-2">
@@ -315,9 +325,9 @@ const ReduxTFormEntry = () => {
             </button>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
 
-export default ReduxTFormEntry;
+export default CreateFormEntry;

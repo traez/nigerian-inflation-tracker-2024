@@ -1,4 +1,5 @@
 import { getSession } from "@/lib/getSession";
+import AllFormEntry from "@/components/AllFormEntry";
 
 export default async function Home() {
   const session = await getSession();
@@ -6,7 +7,7 @@ export default async function Home() {
   const expires: string = session?.expires ?? "";
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-4">
       <div className="">
         <h1>Home Page Trae</h1>
         {user && (
@@ -18,6 +19,7 @@ export default async function Home() {
           </div>
         )}
       </div>
+      <AllFormEntry />
     </main>
   );
 }

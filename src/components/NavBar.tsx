@@ -48,10 +48,22 @@ export default function Navbar() {
           Profile
         </Link>
         <Link
-          href="/post"
+          href="/create"
           className="hover:underline hover:text-blue-600 font-bold px-1"
         >
-          Post
+          Create Post
+        </Link>
+        <Link
+          href="/post/id"
+          className="hover:underline hover:text-blue-600 font-bold px-1"
+        >
+          View Post
+        </Link>
+        <Link
+          href="/edit/id"
+          className="hover:underline hover:text-blue-600 font-bold px-1"
+        >
+          Edit Post
         </Link>
       </nav>
     </>
