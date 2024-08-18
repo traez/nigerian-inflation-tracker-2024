@@ -2,27 +2,27 @@
 import FormEntry from "@/lib/modelForm";
 import { FormEntry as FormEntryType } from "@/lib/typeFormEntry";
 
-export const addFormEntry = async (entry: FormEntryType) => {
+const addFormEntry = async (entry: FormEntryType) => {
   try {
     const newEntry = new FormEntry(entry);
     const savedEntry = await newEntry.save();
     const mongoId = savedEntry._id.toString();
     const { _id, __v, ...plainEntry } = savedEntry.toObject();
-    const result = { mongoId, ...plainEntry }; 
-    return result; 
+    const result = { mongoId, ...plainEntry };
+    return result;
   } catch (error) {
     console.error("Error adding form entry:", error);
     throw new Error("Failed to add form entry");
   }
 };
 
-export const getFormEntries = async () => {
+const getFormEntries = async () => {
   try {
     const entries = await FormEntry.find({});
     const plainEntries = entries.map((entry) => {
       const { _id, __v, ...plainEntry } = entry.toObject();
-      const mongoId = _id.toString(); 
-      return { mongoId, ...plainEntry }; 
+      const mongoId = _id.toString();
+      return { mongoId, ...plainEntry };
     });
     return plainEntries;
   } catch (error) {
@@ -31,7 +31,7 @@ export const getFormEntries = async () => {
   }
 };
 
-export const deleteFormEntry = async (mongoId: string) => {
+const deleteFormEntry = async (mongoId: string) => {
   try {
     const deletedEntry = await FormEntry.findByIdAndDelete(mongoId);
     if (!deletedEntry) {
@@ -49,9 +49,16 @@ export const deleteFormEntry = async (mongoId: string) => {
   }
 };
 
-export const editFormEntry = async (mongoId: string, updatedData: Partial<FormEntryType>) => {
+const editFormEntry = async (
+  mongoId: string,
+  updatedData: Partial<FormEntryType>
+) => {
   try {
-    const updatedEntry = await FormEntry.findByIdAndUpdate(mongoId, updatedData, { new: true });
+    const updatedEntry = await FormEntry.findByIdAndUpdate(
+      mongoId,
+      updatedData,
+      { new: true }
+    );
     if (!updatedEntry) {
       throw new Error("Form entry not found");
     }
@@ -69,8 +76,7 @@ export const editFormEntry = async (mongoId: string, updatedData: Partial<FormEn
   }
 };
 
-
-export const getFormEntryById = async (mongoId: string) => {
+const getFormEntryById = async (mongoId: string) => {
   try {
     const entry = await FormEntry.findById(mongoId);
     if (!entry) {
@@ -85,7 +91,17 @@ export const getFormEntryById = async (mongoId: string) => {
       throw new Error(`Failed to fetch form entry by ID: ${error.message}`);
     } else {
       console.error("An unknown error occurred");
-      throw new Error("Failed to fetch form entry by ID: An unknown error occurred");
+      throw new Error(
+        "Failed to fetch form entry by ID: An unknown error occurred"
+      );
     }
   }
+};
+
+export {
+  addFormEntry,
+  getFormEntries,
+  deleteFormEntry,
+  editFormEntry,
+  getFormEntryById,
 };

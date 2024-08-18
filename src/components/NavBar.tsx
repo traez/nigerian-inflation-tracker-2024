@@ -31,22 +31,10 @@ export default function Navbar() {
           >
             FAQ
           </Link>
-          <Link
-            href="/category"
-            className="hover:underline hover:text-blue-600 font-bold px-1"
-          >
-            Category
-          </Link>
           <ModeToggle />
         </menu>
       </nav>
       <nav className="flex justify-end border-b">
-        <Link
-          href="/profile"
-          className="hover:underline hover:text-blue-600 font-bold px-1"
-        >
-          Profile
-        </Link>
         <Link
           href="/create"
           className="hover:underline hover:text-blue-600 font-bold px-1"
@@ -54,10 +42,22 @@ export default function Navbar() {
           Create Post
         </Link>
         <Link
-          href="/post/id"
+          href="/user"
           className="hover:underline hover:text-blue-600 font-bold px-1"
         >
-          View Post
+          View By User
+        </Link>
+        <Link
+          href="/category"
+          className="hover:underline hover:text-blue-600 font-bold px-1"
+        >
+          View By Category
+        </Link>
+        <Link
+          href="/state"
+          className="hover:underline hover:text-blue-600 font-bold px-1"
+        >
+          View By State
         </Link>
       </nav>
     </>
