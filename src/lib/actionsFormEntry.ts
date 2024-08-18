@@ -48,3 +48,44 @@ export const deleteFormEntry = async (mongoId: string) => {
     }
   }
 };
+
+export const editFormEntry = async (mongoId: string, updatedData: Partial<FormEntryType>) => {
+  try {
+    const updatedEntry = await FormEntry.findByIdAndUpdate(mongoId, updatedData, { new: true });
+    if (!updatedEntry) {
+      throw new Error("Form entry not found");
+    }
+    const { _id, __v, ...plainEntry } = updatedEntry.toObject();
+    const result = { mongoId: _id.toString(), ...plainEntry };
+    return result;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error editing form entry:", error.message);
+      throw new Error(`Failed to edit form entry: ${error.message}`);
+    } else {
+      console.error("An unknown error occurred");
+      throw new Error("Failed to edit form entry: An unknown error occurred");
+    }
+  }
+};
+
+
+export const getFormEntryById = async (mongoId: string) => {
+  try {
+    const entry = await FormEntry.findById(mongoId);
+    if (!entry) {
+      throw new Error("Form entry not found");
+    }
+    const { _id, __v, ...plainEntry } = entry.toObject();
+    const result = { mongoId: _id.toString(), ...plainEntry };
+    return result;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching form entry by ID:", error.message);
+      throw new Error(`Failed to fetch form entry by ID: ${error.message}`);
+    } else {
+      console.error("An unknown error occurred");
+      throw new Error("Failed to fetch form entry by ID: An unknown error occurred");
+    }
+  }
+};

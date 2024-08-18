@@ -59,12 +59,6 @@ export default function Navbar() {
         >
           View Post
         </Link>
-        <Link
-          href="/edit/id"
-          className="hover:underline hover:text-blue-600 font-bold px-1"
-        >
-          Edit Post
-        </Link>
       </nav>
     </>
   );

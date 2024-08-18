@@ -103,50 +103,17 @@ const CreateFormEntry: React.FC<CreateFormEntryProps> = ({ userEmail }) => {
     reset();
   };
 
-  /* const onEdit = (data: FormSchemaType) => {
-    const [year, month, day] = data.datePurchased.split("-");
-    const formattedDatePurchased = `${day}/${month}/${year}`;
-
-    const formattedData = {
-      ...data,
-      datePurchased: formattedDatePurchased,
-      price: parseFloat(data.price.toString()),
-      quantity: parseInt(data.quantity.toString(), 10),
-      id: editingId,
-    };
-
-    //dispatch(editFormEntry(formattedData));
-    reset();
-    setEditingId("");
-  }; */
-
-  /* const handleEditClick = (entry: FormEntry) => {
-    const [day, month, year] = entry.datePurchased.split("/");
-    const formattedDatePurchased = `${year}-${month}-${day}`;
-
-    setValue("datePurchased", formattedDatePurchased);
-    setValue("dateReported", entry.dateReported);
-    setValue("category", entry.category);
-    setValue("item", entry.item);
-    setValue("price", entry.price);
-    setValue("quantity", entry.quantity);
-    setValue("state", entry.state);
-    setValue("notes", entry.notes);
-    setEditingId(entry.id);
-  }; */
-
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Add New Entry</h2>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        /*     onSubmit={handleSubmit(editingId ? onEdit : onSubmit)} */
         className="space-y-4"
       >
         <div>
           <label className="block text-sm font-medium text-gray-700">
-          User Email
+            User Email
           </label>
           <input
             type="text"
@@ -285,46 +252,6 @@ const CreateFormEntry: React.FC<CreateFormEntryProps> = ({ userEmail }) => {
           {editingId ? "Save Changes" : "Add Entry"}
         </button>
       </form>
-
-      <h2 className="text-2xl font-bold mt-8 mb-4">Entries</h2>
-      {/*  <ul className="space-y-4">
-        {formEntries.map((entry) => (
-          <li key={entry.id} className="p-4 bg-white rounded-lg shadow">
-            <div className="flex flex-col space-y-2">
-              <p className="text-sm text-gray-500">
-                Date Purchased: {entry.datePurchased}
-              </p>
-              <p className="text-sm text-gray-500">
-                Date Reported: {entry.dateReported}
-              </p>
-              <p className="text-sm text-gray-500">
-                Category: {entry.category}
-              </p>
-              <p className="text-sm text-gray-500">Item: {entry.item}</p>
-              <p className="text-sm text-gray-500">
-                Price: ${entry.price.toFixed(2)}
-              </p>
-              <p className="text-sm text-gray-500">
-                Quantity: {entry.quantity}
-              </p>
-              <p className="text-sm text-gray-500">State: {entry.state}</p>
-              <p className="text-sm text-gray-500">Notes: {entry.notes}</p>
-            </div>
-            <button
-              onClick={() => handleEditClick(entry)}
-              className="text-blue-600 hover:text-blue-800 mt-2 mr-2"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => dispatch(deleteFormEntry(entry.id))}
-              className="text-red-600 hover:text-red-800 mt-2"
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul> */}
     </div>
   );
 };
