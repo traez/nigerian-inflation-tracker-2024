@@ -98,10 +98,26 @@ const getFormEntryById = async (mongoId: string) => {
   }
 };
 
+const getFormEntriesByCategory = async (category: string) => {
+  try {
+    const entries = await FormEntry.find({ category });
+    const plainEntries = entries.map((entry) => {
+      const { _id, __v, ...plainEntry } = entry.toObject();
+      const mongoId = _id.toString();
+      return { mongoId, ...plainEntry };
+    });
+    return plainEntries;
+  } catch (error) {
+    console.error("Error fetching form entries by category:", error);
+    throw new Error("Failed to fetch form entries by category");
+  }
+};
+
 export {
   addFormEntry,
   getFormEntries,
   deleteFormEntry,
   editFormEntry,
   getFormEntryById,
+  getFormEntriesByCategory,
 };
