@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -65,6 +66,7 @@ interface CreateFormEntryProps {
 
 const CreateFormEntry: React.FC<CreateFormEntryProps> = ({ userEmail }) => {
   const [editingId, setEditingId] = useState<string>("");
+  const router = useRouter();
 
   const {
     register,
@@ -98,9 +100,9 @@ const CreateFormEntry: React.FC<CreateFormEntryProps> = ({ userEmail }) => {
       id: uuidv4(),
       userEmail: userEmailSplit,
     };
-    console.log(formattedData);
     await addFormEntry(formattedData);
     reset();
+    router.replace("/?timestamp=" + new Date().getTime());
   };
 
   return (

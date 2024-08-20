@@ -113,6 +113,21 @@ const getFormEntriesByCategory = async (category: string) => {
   }
 };
 
+const getFormEntriesByState = async (state: string) => {
+  try {
+    const entries = await FormEntry.find({ state });
+    const plainEntries = entries.map((entry) => {
+      const { _id, __v, ...plainEntry } = entry.toObject();
+      const mongoId = _id.toString();
+      return { mongoId, ...plainEntry };
+    });
+    return plainEntries;
+  } catch (error) {
+    console.error("Error fetching form entries by state:", error);
+    throw new Error("Failed to fetch form entries by state");
+  }
+};
+
 export {
   addFormEntry,
   getFormEntries,
@@ -120,4 +135,5 @@ export {
   editFormEntry,
   getFormEntryById,
   getFormEntriesByCategory,
+  getFormEntriesByState,
 };
