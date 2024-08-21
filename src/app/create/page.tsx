@@ -13,8 +13,19 @@ export default async function CreatePage() {
 
   return (
     <div className="min-h-screen">
-      <h1>CreatePage</h1>
-      <CreateFormEntry userEmail={userEmail} />
+      {session?.user ? (
+        <>
+          <h1 className="text-2xl font-bold mb-4">Create a New Entry</h1>
+          <CreateFormEntry userEmail={userEmail} />
+        </>
+      ) : (
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Sign In Required</h1>
+          <p className="mb-4">
+            Please log in with GitHub or Google to create a new post.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { getSession } from "@/lib/getSession";
 
 export const metadata: Metadata = {
   title: "View by User - Nigerian Inflation Tracker 2024",
@@ -7,7 +6,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ViewByUserPage() {
-  const session = await getSession();
 
   return (
     <div className="min-h-screen">

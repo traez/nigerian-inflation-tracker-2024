@@ -12,7 +12,18 @@ export default async function EditPage() {
 
   return (
     <div className="min-h-screen">
-      <EditFormEntry />
+      {session?.user ? (
+        <>
+          <EditFormEntry />
+        </>
+      ) : (
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Sign In Required</h1>
+          <p className="mb-4">
+            Please log in with GitHub or Google to create a new post.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

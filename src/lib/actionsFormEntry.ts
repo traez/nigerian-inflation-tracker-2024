@@ -128,6 +128,32 @@ const getFormEntriesByState = async (state: string) => {
   }
 };
 
+const getUserEmails = async () => {
+  try {
+    const userEmails = await FormEntry.distinct("userEmail");
+    console.log(userEmails);
+    return userEmails;
+  } catch (error) {
+    console.error("Error fetching user emails:", error);
+    throw new Error("Failed to fetch user emails");
+  }
+};
+
+const getFormEntriesByUserEmail = async (userEmail: string) => {
+  try {
+    const entries = await FormEntry.find({ userEmail });
+    const plainEntries = entries.map((entry) => {
+      const { _id, __v, ...plainEntry } = entry.toObject();
+      const mongoId = _id.toString();
+      return { mongoId, ...plainEntry };
+    });
+    return plainEntries;
+  } catch (error) {
+    console.error("Error fetching form entries by userEmail:", error);
+    throw new Error("Failed to fetch form entries by userEmail");
+  }
+};
+
 export {
   addFormEntry,
   getFormEntries,
@@ -136,4 +162,6 @@ export {
   getFormEntryById,
   getFormEntriesByCategory,
   getFormEntriesByState,
+  getUserEmails,
+  getFormEntriesByUserEmail,
 };

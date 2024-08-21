@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { getSession } from "@/lib/getSession";
 import StateFormEntry from "@/components/StateFormEntry";
 
 export const metadata: Metadata = {
@@ -8,7 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ViewByStatePage() {
-  const session = await getSession();
 
   return (
     <div className="min-h-screen">

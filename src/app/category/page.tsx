@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { getSession } from "@/lib/getSession";
 import CategoryFormEntry from "@/components/CategoryFormEntry";
 
 export const metadata: Metadata = {
@@ -8,7 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ViewByCategoryPage() {
-  const session = await getSession();
 
   return (
     <div className="min-h-screen p-4">
