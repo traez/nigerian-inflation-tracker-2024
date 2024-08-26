@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner"
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import dbConnect from "@/lib/dbconnect";
@@ -30,6 +31,7 @@ export default async function RootLayout({
           {children}
           <Footer />
         </ThemeProvider>
+        <Toaster position="top-center"/>
       </body>
     </html>
   );

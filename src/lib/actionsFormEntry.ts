@@ -131,7 +131,6 @@ const getFormEntriesByState = async (state: string) => {
 const getUserEmails = async () => {
   try {
     const userEmails = await FormEntry.distinct("userEmail");
-    console.log(userEmails);
     return userEmails;
   } catch (error) {
     console.error("Error fetching user emails:", error);
