@@ -4,8 +4,13 @@ import { getFormEntriesByCategory } from "@/lib/actionsFormEntry";
 import { FormEntryWithMongoId } from "@/lib/typeFormEntry";
 import { Categories, Category } from "@/lib/typeCategories";
 import FormEntryItem from "./FormEntryItem";
+import { User } from "@/lib/typeGetSession";
 
-const CategoryFormEntry = () => {
+interface CategoryFormEntryProps {
+  user: User | null;
+}
+
+const CategoryFormEntry: React.FC<CategoryFormEntryProps> = ({ user }) => {
   const [category, setCategory] = useState<Category>("Select Category");
   const [entries, setEntries] = useState<FormEntryWithMongoId[]>([]);
 
@@ -41,7 +46,7 @@ const CategoryFormEntry = () => {
           </h2>
           <ul className="space-y-4">
             {entries.map((entry) => (
-              <FormEntryItem key={entry.mongoId} entry={entry} />
+              <FormEntryItem key={entry.mongoId} entry={entry} user={user}/>
             ))}
           </ul>
         </>

@@ -1,4 +1,4 @@
-import { socialLogin } from "@/lib/actions";
+import { socialLogin } from "@/lib/actionsLoginOut";
 import { FcGoogle } from "react-icons/fc";
 
 const GoogleLogin = () => {
@@ -10,7 +10,7 @@ const GoogleLogin = () => {
         name="action"
         value="google"
       >
-        <FcGoogle size="36px"/>
+        <FcGoogle size="36px" />
       </button>
     </form>
   );

@@ -2,8 +2,13 @@
 import UserFormEntry from "@/components/UserFormEntry";
 import { useState, useEffect } from "react";
 import { getUserEmails } from "@/lib/actionsFormEntry";
+import { User } from "@/lib/typeGetSession";
 
-const UserListFormEntry = () => {
+interface UserListFormEntryProps {
+  user: User | null;
+}
+
+const UserListFormEntry: React.FC<UserListFormEntryProps> = ({ user }) => {
   const [userEmails, setUserEmails] = useState<string[]>([]);
 
   useEffect(() => {
@@ -17,7 +22,7 @@ const UserListFormEntry = () => {
 
   return (
     <>
-      <UserFormEntry userEmails={userEmails} />
+      <UserFormEntry userEmails={userEmails} user={user}/>
     </>
   );
 };

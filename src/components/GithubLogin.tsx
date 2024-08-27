@@ -1,4 +1,4 @@
-import { socialLogin } from "@/lib/actions";
+import { socialLogin } from "@/lib/actionsLoginOut";
 import { LiaGithubSquare } from "react-icons/lia";
 
 const GithubLogin = () => {
@@ -10,7 +10,7 @@ const GithubLogin = () => {
         name="action"
         value="github"
       >
-        <LiaGithubSquare size="40px"/>
+        <LiaGithubSquare size="40px" />
       </button>
     </form>
   );

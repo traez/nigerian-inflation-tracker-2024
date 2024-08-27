@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getSession } from "@/lib/getSession";
-import { logout } from "@/lib/actions";
+import { logout } from "@/lib/actionsLoginOut";
 import { Button } from "@/components/ui/button";
 import ModeToggle from "./ModeToggle";
 import GithubLogin from "./GithubLogin";

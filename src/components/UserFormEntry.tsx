@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import { getFormEntriesByUserEmail } from "@/lib/actionsFormEntry";
 import { FormEntryWithMongoId } from "@/lib/typeFormEntry";
 import FormEntryItem from "./FormEntryItem";
+import { User } from "@/lib/typeGetSession";
 
 interface UserFormEntryProps {
     userEmails: string[];
+    user: User | null;
   }
 
-  const UserFormEntry = ({ userEmails }: UserFormEntryProps) => {
+  const UserFormEntry = ({ userEmails, user }: UserFormEntryProps) => {
     const [selectedEmail, setSelectedEmail] = useState<string>("Select User");
     const [entries, setEntries] = useState<FormEntryWithMongoId[]>([]);
 
@@ -43,7 +45,7 @@ interface UserFormEntryProps {
               <h2 className="text-2xl font-bold mt-8 mb-4">Entries by {selectedEmail}</h2>
               <ul className="space-y-4">
                 {entries.map((entry) => (
-                  <FormEntryItem key={entry.mongoId} entry={entry} />
+                  <FormEntryItem key={entry.mongoId} entry={entry} user={user}/>
                 ))}
               </ul>
             </>

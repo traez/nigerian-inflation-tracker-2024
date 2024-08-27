@@ -4,8 +4,13 @@ import { getFormEntriesByState } from "@/lib/actionsFormEntry";
 import { FormEntryWithMongoId } from "@/lib/typeFormEntry";
 import { StatesNg, StateNg } from "@/lib/typeStatesng";
 import FormEntryItem from "./FormEntryItem";
+import { User } from "@/lib/typeGetSession";
 
-const StateFormEntry = () => {
+interface StateFormEntryProps {
+  user: User | null;
+}
+
+const StateFormEntry: React.FC<StateFormEntryProps> = ({ user }) => {
   const [state, setState] = useState<StateNg>("Select State");
   const [entries, setEntries] = useState<FormEntryWithMongoId[]>([]);
 
@@ -39,7 +44,7 @@ const StateFormEntry = () => {
           <h2 className="text-2xl font-bold mt-8 mb-4">Entries in {state}</h2>
           <ul className="space-y-4">
             {entries.map((entry) => (
-              <FormEntryItem key={entry.mongoId} entry={entry} />
+              <FormEntryItem key={entry.mongoId} entry={entry} user={user}/>
             ))}
           </ul>
         </>

@@ -1,26 +1,36 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { getSession } from "@/lib/getSession";
 import { FormEntryWithMongoId } from "@/lib/typeFormEntry";
 import { deleteFormEntry } from "@/lib/actionsFormEntry";
+import { User } from "@/lib/typeGetSession";
 
 interface FormEntryItemProps {
   entry: FormEntryWithMongoId;
+  user: User | null;
 }
 
-const FormEntryItem: React.FC<FormEntryItemProps> = ({ entry }) => {
+const FormEntryItem: React.FC<FormEntryItemProps> = ({ entry, user }) => {
   const router = useRouter();
 
-  const notify = () => {
+  const successAlert = () => {
     toast("Form entry deleted successfully");
   };
 
+  const failAlert = () => {
+    toast("Please log in with GitHub or Google to delete a post");
+  };
+
   const handleDelete = async (mongoId: string) => {
+    if (!user) {
+      failAlert();
+      return;
+    }
+
     try {
       const result = await deleteFormEntry(mongoId);
       if (result.message === "Form entry deleted successfully") {
-        notify();
+        successAlert();
         setTimeout(() => {
           router.refresh();
         }, 4100);
