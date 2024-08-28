@@ -7,7 +7,8 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4">
       <div className="">
-        <h1>Home Page Trae</h1>
+        <h1 className="text-xl text-center border rounded-md">Track inflation. Empower Nigerians. Shape Policy</h1>
+        <h2 className="text-lg text-center border rounded-md">Data-driven inflation tracker for financial resilience in Nigeria</h2>
         {session?.user && (
           <div className="mt-6">
             <p className="text-lg">Email: {session.user.email}</p>

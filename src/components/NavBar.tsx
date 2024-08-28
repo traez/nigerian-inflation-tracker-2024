@@ -12,7 +12,7 @@ export default async function Navbar() {
 
   return (
     <>
-      <nav className="p-1 flex justify-between border-b">
+      <nav className="p-1 flex justify-between border-b bg-[#14141444]">
         <menu className="flex justify-start">
           <Link
             href="/"
@@ -44,7 +44,7 @@ export default async function Navbar() {
           <ModeToggle />
         </menu>
       </nav>
-      <nav className="flex justify-end border-b gap-1">
+      <nav className="flex justify-end border-b gap-1 bg-[#14141444]">
         {user && (
           <Link
             href="/create"
