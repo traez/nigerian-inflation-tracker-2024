@@ -12,7 +12,7 @@ export default async function AllFormEntry({ user }: AllFormEntryProps) {
 
   return (
     <>
-      <h2 className="text-2xl font-bold mt-8 mb-4">Entries</h2>
+      <h2 className="text-xl sm:text-2xl font-bold mt-8 mb-4">Entries</h2>
       <ul className="space-y-4">
         {fetchedFormEntries.map((entry) => (
           <FormEntryItem key={entry.id} entry={entry} user={user}/>

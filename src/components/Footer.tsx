@@ -3,7 +3,7 @@
 export default function Footer() {
   return (
     <>
-      <footer className="p-2 flex flex-row justify-center items-center gap-8 text-sm border-t-2 border-traeGreen4 border-solid bg-[#14141444] text-white">
+      <footer className="p-2 flex flex-row justify-center items-center gap-4 sm:gap-8 text-xs sm:text-sm border-t-2 border-traeGreen4 border-solid bg-[#14141444] text-white">
       <a
           href="https://github.com/traez/nigerian-inflation-tracker-2024"
           target="_blank"

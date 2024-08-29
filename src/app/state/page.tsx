@@ -11,7 +11,7 @@ export default async function ViewByStatePage() {
   const session = await getSession();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen p-4">
       <h2 className="text-2xl font-bold mb-4">View By State Page</h2>
       <StateFormEntry user={session?.user || null}/>
     </div>

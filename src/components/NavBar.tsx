@@ -12,11 +12,11 @@ export default async function Navbar() {
 
   return (
     <>
-      <nav className="p-1 flex justify-between border-b bg-[#14141444]">
+      <nav className="flex flex-col justify-center items-center sm:flex-row sm:justify-between p-1 border-b bg-[#14141444]">
         <menu className="flex justify-start">
           <Link
             href="/"
-            className="text-2xl hover:underline hover:text-blue-600 "
+            className="text-xl sm:text-2xl hover:underline hover:text-blue-600 "
           >
             Nigerian Inflation Tracker 2024
           </Link>
@@ -44,7 +44,7 @@ export default async function Navbar() {
           <ModeToggle />
         </menu>
       </nav>
-      <nav className="flex justify-end border-b gap-1 bg-[#14141444]">
+      <nav className="flex justify-center sm:justify-end border-b gap-1 bg-[#14141444]">
         {user && (
           <Link
             href="/create"

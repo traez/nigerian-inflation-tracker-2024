@@ -12,7 +12,7 @@ export default async function CreatePage() {
   const userEmail = session?.user?.email;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen p-4">
       {session?.user ? (
         <>
           <h1 className="text-2xl font-bold mb-4">Create a New Entry</h1>
