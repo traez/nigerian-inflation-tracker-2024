@@ -1,5 +1,6 @@
 import { getSession } from "@/lib/getSession";
 import AllFormEntry from "@/components/AllFormEntry";
+import TanAllFormEntry from "@/components/TanAllFormEntry";
 
 export default async function Home() {
   const session = await getSession();
@@ -23,7 +24,8 @@ export default async function Home() {
           </div>
         )}
       </div>
-      <AllFormEntry user={session?.user || null} />
+      {/* <AllFormEntry user={session?.user || null} /> */}
+      <TanAllFormEntry user={session?.user || null} />
     </main>
   );
 }
