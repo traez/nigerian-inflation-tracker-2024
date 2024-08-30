@@ -13,7 +13,7 @@ const FaqPage = () => {
       </h1>
       <aside className="flex flex-col justify-around gap-3 sm:gap-6 text-sm sm:text-lg">
         <p>
-          Welcome to <span className="font-bold underline text-amber-900">nigerianinflationtracker2024.com</span>. This website is my first <span className="font-bold underline text-amber-900">full-stack app</span> and a pet project, built out of love and with the
+          Welcome to <span className="font-bold underline text-amber-900">nigerian-inflation-tracker-2024.vercel.app</span>. This website is my first <span className="font-bold underline text-amber-900">full-stack app</span> and a pet project, built out of love and with the
           intention of using code to solve real-world problems.
         </p>
         <p>
