@@ -80,8 +80,7 @@ Encountered an issue with MongoDB’s ObjectId not being serializable to JSON, c
 Resolved by modifying server actions to return plain objects, excluding MongoDB-specific types, ensuring compatibility and avoiding serialization issues.      
 - **Sonner vs. React-Toastify for Notifications**  
 Explored using Sonner for toast notifications as an alternative to React-Toastify.  
-- **Future Enhancements**  
-User Permissions: Implement restrictions to allow users to edit or delete only their own data.  
+- **Future Enhancements**   
 Authentication: Separate registration and login functionalities for a more user-friendly experience.    
 - **Responsive Design Best Practices**  
 Adopted design strategies for three breakpoints (320px, 640px, 1280px) in Figma, with the first as an edge case and the latter two as Tailwind CSS defaults.    
