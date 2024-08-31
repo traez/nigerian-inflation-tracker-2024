@@ -18,7 +18,7 @@ const FormEntryItem: React.FC<FormEntryItemProps> = ({ entry, user }) => {
   };
 
   const failAlert = () => {
-    toast("Please log in with GitHub or Google to delete a post");
+    toast("Please log in with GitHub or Google to edit or delete a post");
   };
 
   const unauthorizedAlert = () => {
