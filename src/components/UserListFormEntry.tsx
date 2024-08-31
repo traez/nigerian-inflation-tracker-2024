@@ -10,19 +10,30 @@ interface UserListFormEntryProps {
 
 const UserListFormEntry: React.FC<UserListFormEntryProps> = ({ user }) => {
   const [userEmails, setUserEmails] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchUserEmails = async () => {
-      const emails = await getUserEmails();
-      setUserEmails(emails);
+      try {
+        const emails = await getUserEmails();
+        setUserEmails(emails);
+      } catch (error) {
+        console.error("Error fetching user emails:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchUserEmails();
   }, []);
 
+  if (loading) {
+    return <p>Loading user emails...</p>;
+  }
+
   return (
     <>
-      <UserFormEntry userEmails={userEmails} user={user}/>
+      <UserFormEntry userEmails={userEmails} user={user} />
     </>
   );
 };
