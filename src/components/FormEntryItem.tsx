@@ -21,9 +21,20 @@ const FormEntryItem: React.FC<FormEntryItemProps> = ({ entry, user }) => {
     toast("Please log in with GitHub or Google to delete a post");
   };
 
+  const unauthorizedAlert = () => {
+    toast("You can only edit or delete posts that you created.");
+  };
+
   const handleDelete = async (mongoId: string) => {
     if (!user) {
       failAlert();
+      return;
+    }
+
+    const userEmailSplit = user.email.split("@")[0];
+
+    if (entry.userEmail !== userEmailSplit) {
+      unauthorizedAlert();
       return;
     }
 
@@ -41,6 +52,18 @@ const FormEntryItem: React.FC<FormEntryItemProps> = ({ entry, user }) => {
   };
 
   const handleEdit = () => {
+    if (!user) {
+      failAlert();
+      return;
+    }
+
+    const userEmailSplit = user.email.split("@")[0];
+
+    if (entry.userEmail !== userEmailSplit) {
+      unauthorizedAlert();
+      return;
+    }
+
     router.push(`/edit/${entry.mongoId}`);
   };
 
