@@ -13,16 +13,24 @@ interface CategoryFormEntryProps {
 const CategoryFormEntry: React.FC<CategoryFormEntryProps> = ({ user }) => {
   const [category, setCategory] = useState<Category>("Select Category");
   const [entries, setEntries] = useState<FormEntryWithMongoId[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (category !== "Select Category") {
-      const fetchEntries = async () => {
-        const fetchedEntries = await getFormEntriesByCategory(category);
-        setEntries(fetchedEntries);
-      };
+    const fetchEntries = async () => {
+      if (category !== "Select Category") {
+        setLoading(true);
+        try {
+          const fetchedEntries = await getFormEntriesByCategory(category);
+          setEntries(fetchedEntries);
+        } catch (error) {
+          console.error("Failed to fetch entries:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
 
-      fetchEntries();
-    }
+    fetchEntries();
   }, [category]);
 
   return (
@@ -39,17 +47,31 @@ const CategoryFormEntry: React.FC<CategoryFormEntryProps> = ({ user }) => {
           </option>
         ))}
       </select>
-      {category !== "Select Category" && (
-        <>
-          <h2 className="text-2xl font-bold mt-8 mb-4">
-            Entries in {category}
-          </h2>
-          <ul className="space-y-4">
-            {entries.map((entry) => (
-              <FormEntryItem key={entry.mongoId} entry={entry} user={user}/>
-            ))}
-          </ul>
-        </>
+      {loading ? (
+        <p>Loading entries...</p>
+      ) : (
+        category !== "Select Category" && (
+          <>
+            {entries.length > 0 ? (
+              <>
+                <h2 className="text-2xl font-bold mt-8 mb-4">
+                  Entries in {category}
+                </h2>
+                <ul className="space-y-4">
+                  {entries.map((entry) => (
+                    <FormEntryItem
+                      key={entry.mongoId}
+                      entry={entry}
+                      user={user}
+                    />
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p>No entries found for {category}</p>
+            )}
+          </>
+        )
       )}
     </>
   );

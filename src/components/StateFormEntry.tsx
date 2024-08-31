@@ -13,16 +13,24 @@ interface StateFormEntryProps {
 const StateFormEntry: React.FC<StateFormEntryProps> = ({ user }) => {
   const [state, setState] = useState<StateNg>("Select State");
   const [entries, setEntries] = useState<FormEntryWithMongoId[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (state !== "Select State") {
-      const fetchEntries = async () => {
-        const fetchedEntries = await getFormEntriesByState(state);
-        setEntries(fetchedEntries);
-      };
+    const fetchEntries = async () => {
+      if (state !== "Select State") {
+        setLoading(true);
+        try {
+          const fetchedEntries = await getFormEntriesByState(state);
+          setEntries(fetchedEntries);
+        } catch (error) {
+          console.error("Failed to fetch entries:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
 
-      fetchEntries();
-    }
+    fetchEntries();
   }, [state]);
 
   return (
@@ -39,15 +47,31 @@ const StateFormEntry: React.FC<StateFormEntryProps> = ({ user }) => {
           </option>
         ))}
       </select>
-      {state !== "Select State" && (
-        <>
-          <h2 className="text-2xl font-bold mt-8 mb-4">Entries in {state}</h2>
-          <ul className="space-y-4">
-            {entries.map((entry) => (
-              <FormEntryItem key={entry.mongoId} entry={entry} user={user}/>
-            ))}
-          </ul>
-        </>
+      {loading ? (
+        <p>Loading entries...</p>
+      ) : (
+        state !== "Select State" && (
+          <>
+            {entries.length > 0 ? (
+              <>
+                <h2 className="text-2xl font-bold mt-8 mb-4">
+                  Entries in {state}
+                </h2>
+                <ul className="space-y-4">
+                  {entries.map((entry) => (
+                    <FormEntryItem
+                      key={entry.mongoId}
+                      entry={entry}
+                      user={user}
+                    />
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p>No entries found for {state}</p> 
+            )}
+          </>
+        )
       )}
     </>
   );
