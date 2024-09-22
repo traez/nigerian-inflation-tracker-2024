@@ -1,8 +1,10 @@
 "use server";
 import FormEntry from "@/lib/modelForm";
 import { FormEntry as FormEntryType } from "@/lib/typeFormEntry";
+import dbConnect from "@/lib/dbconnect";
 
 const addFormEntry = async (entry: FormEntryType) => {
+  await dbConnect();
   try {
     const newEntry = new FormEntry(entry);
     const savedEntry = await newEntry.save();
@@ -17,6 +19,7 @@ const addFormEntry = async (entry: FormEntryType) => {
 };
 
 const getFormEntries = async () => {
+  await dbConnect();
   try {
     const entries = await FormEntry.find({});
     const plainEntries = entries.map((entry) => {
@@ -32,6 +35,7 @@ const getFormEntries = async () => {
 };
 
 const deleteFormEntry = async (mongoId: string) => {
+  await dbConnect();
   try {
     const deletedEntry = await FormEntry.findByIdAndDelete(mongoId);
     if (!deletedEntry) {
@@ -53,6 +57,7 @@ const editFormEntry = async (
   mongoId: string,
   updatedData: Partial<FormEntryType>
 ) => {
+  await dbConnect();
   try {
     const updatedEntry = await FormEntry.findByIdAndUpdate(
       mongoId,
@@ -77,6 +82,7 @@ const editFormEntry = async (
 };
 
 const getFormEntryById = async (mongoId: string) => {
+  await dbConnect();
   try {
     const entry = await FormEntry.findById(mongoId);
     if (!entry) {
@@ -99,6 +105,7 @@ const getFormEntryById = async (mongoId: string) => {
 };
 
 const getFormEntriesByCategory = async (category: string) => {
+  await dbConnect();
   try {
     const entries = await FormEntry.find({ category });
     const plainEntries = entries.map((entry) => {
@@ -114,6 +121,7 @@ const getFormEntriesByCategory = async (category: string) => {
 };
 
 const getFormEntriesByState = async (state: string) => {
+  await dbConnect();
   try {
     const entries = await FormEntry.find({ state });
     const plainEntries = entries.map((entry) => {
@@ -129,6 +137,7 @@ const getFormEntriesByState = async (state: string) => {
 };
 
 const getUserEmails = async () => {
+  await dbConnect();
   try {
     const userEmails = await FormEntry.distinct("userEmail");
     return userEmails;
@@ -139,6 +148,7 @@ const getUserEmails = async () => {
 };
 
 const getFormEntriesByUserEmail = async (userEmail: string) => {
+  await dbConnect();
   try {
     const entries = await FormEntry.find({ userEmail });
     const plainEntries = entries.map((entry) => {
